@@ -21,6 +21,7 @@
 		"react/react-in-jsx-scope": 0,
 		"react/display-name": 0,
 		"react/prop-types": 0,
+		"react/jsx-tag-spacing": 0,
 		"react/jsx-boolean-value": ["error", "never"],
 		"react/jsx-max-props-per-line": [
 			2,
@@ -90,6 +91,7 @@
 		"semi": "error",
 		"comma-dangle": ["error", "never"],
 		"comma-spacing": ["error", { "before": false, "after": true }],
+		"dot-location": ["error", "property"],
 		"quotes": ["error", "single"],
 		"eol-last": ["error", "always"],
 		"jsx-quotes": ["error", "prefer-double"],

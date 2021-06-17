@@ -1,9 +1,9 @@
 // eslint-disable-next-line
-const defaultTheme = require('tailwindcss/defaultTheme');
+// const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
 	darkMode: false, // or 'media' or 'class'
-	theme: { fontFamily: { sans: ['PT Sans', ...defaultTheme.fontFamily.sans] } },
+	theme: { fontFamily: { sans: ['PT Sans'] } },
 	variants: { extend: {} },
 	plugins: [],
 	mode: 'jit',
