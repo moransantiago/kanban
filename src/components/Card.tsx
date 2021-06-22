@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 
+import { User } from '../types';
+
 interface CardProps {
 	id: number
 	title: string
 	subtitle?: string
-	body?: string
+	creator: User
 	passRef?: (element: HTMLElement | null) => any
 	onClick?: () => any
 }
@@ -13,7 +15,7 @@ export const Card = ({
 	id,
 	title,
 	subtitle = '',
-	body = '',
+	creator,
 	passRef,
 	...props
 }: CardProps): JSX.Element => (
@@ -31,19 +33,28 @@ export const Card = ({
 				opacity: 0.6
 			}}
 			layoutId={id.toString()}
-			className="shadow-md p-2 rounded-sm bg-gray-200 cursor-pointer"
+			className="relative p-3 rounded-sm bg-gray-200 cursor-pointer"
 		>
-			<motion.h2
+			<motion.p
 				className="font-bold text-lg"
 			>
 				{title}
-			</motion.h2>
+			</motion.p>
 			<motion.p
-				className="text-md"
+				className="text-md mb-2"
 			>
 				{subtitle}
 			</motion.p>
-			<motion.p>{body}</motion.p>
+			<motion.span
+				whileHover={{
+					scale: 1.1,
+					rotate: '10deg'
+				}}
+				style={{ backgroundColor: creator.color }}
+				className="rounded-full p-1 text-white w-8 h-8 flex justify-center items-center"
+			>
+				{creator.firstName[0].toLocaleUpperCase() + creator.lastName[0].toLocaleUpperCase()}
+			</motion.span>
 		</motion.div>
 	</div>
 );

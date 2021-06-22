@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult, resetServerContext } from 'react-beautiful-dnd';
 import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { GetStaticProps } from 'next';
+import { BsCardHeading } from 'react-icons/bs';
 
 import { Card as CardComp } from '../components/Card';
 import { Column } from '../components/Column';
 import { BigCard } from '../components/BigCard';
+import { NewColumn } from '../components/NewColumn';
+import { NavBar } from '../components/NavBar';
 
 import MyBoards from '../lib/mock/boards.json';
 import { Board, Card } from '../types';
 
-const Kanban: React.FC = () => {
+const index = (): JSX.Element => {
 	const [board, setBoard] = useState<Board>(MyBoards[0]);
 	const [openedCard, setOpenedCard] = useState<Card | null>(null);
 
@@ -21,7 +24,15 @@ const Kanban: React.FC = () => {
 				id: 17,
 				title: 'Loren ipsum',
 				subtitle: 'Dolor sit amet',
-				description: ''
+				description: '',
+				creator: {
+					id: 2,
+					email: 'lorem@a.net',
+					firstName: 'Charlie',
+					lastName: 'Simmons',
+					username: 'nisi',
+					color: '#7f32a8'
+				}
 			};
 
 			board.columns[columnIndex].cards.push(card);
@@ -66,11 +77,10 @@ const Kanban: React.FC = () => {
 	};
 
 	return (
-		<div
-			className="bg-gray-800 h-screen"
-		>
+		<>
+			<NavBar />
 			<div
-				className="flex"
+				className="flex bg-purple-200 min-h-screen min-w-min h-full w-full pt-[50px]"
 			>
 				<AnimateSharedLayout
 					type="crossfade"
@@ -87,6 +97,16 @@ const Kanban: React.FC = () => {
 									<Column
 										{...provided.droppableProps}
 										title={column.title}
+										subtitle={
+											<span
+												className="flex items-center w-full mb-2 text-gray-600"
+											>
+												<p>{column.cards.length}</p>
+												<BsCardHeading
+													className="mx-2 text-gray-700"
+												/>
+											</span>
+										}
 										passRef={provided.innerRef}
 										isDraggingOver={snapshot.isDraggingOver}
 										handleAddCard={(): void => handleAddCard(index)}
@@ -104,6 +124,7 @@ const Kanban: React.FC = () => {
 														id={card.id}
 														title={card.title}
 														subtitle={card.subtitle}
+														creator={card.creator}
 														passRef={provided.innerRef}
 														onClick={(): void => setOpenedCard(card)}
 													/>
@@ -115,6 +136,7 @@ const Kanban: React.FC = () => {
 								)}
 							</Droppable>
 						))}
+						<NewColumn />
 					</DragDropContext>
 					<AnimatePresence>
 						{openedCard && (
@@ -126,11 +148,11 @@ const Kanban: React.FC = () => {
 					</AnimatePresence>
 				</AnimateSharedLayout>
 			</div>
-		</div>
+		</>
 	);
 };
 
-export default Kanban;
+export default index;
 
 export const getStaticProps: GetStaticProps = async () => {
 	resetServerContext();

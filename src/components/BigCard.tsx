@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { MdClose } from 'react-icons/md';
 
 import { Card } from '../types';
 
@@ -10,7 +11,7 @@ interface BigCardProps {
 
 export const BigCard = ({ Card, onClose }: BigCardProps): JSX.Element => (
 	<div
-		className="fixed bg-opacity-80 w-full h-full bg-gray-900 flex items-center justify-center"
+		className="z-20 absolute inset-0 bg-opacity-80 bg-gray-900 flex items-center justify-center"
 		onClick={onClose}
 	>
 		<motion.div
@@ -28,7 +29,7 @@ export const BigCard = ({ Card, onClose }: BigCardProps): JSX.Element => (
 				duration: 0.15,
 				delay: 0.15
 			}}
-			className="p-3 rounded-sm bg-gray-200 relative md:w-4/6 md:h-3/5 sm:w-10/12 sm:h-3/4 flex flex-row lg:w-3/6 lg:h-2/5"
+			className="p-10 rounded-sm bg-gray-200 relative lg:w-4/6 lg:h-3/5 md:w-11/12 md:h-4/5 sm:w-10/12 sm:h-3/4 flex flex-row"
 			layoutId={Card.id.toString()}
 		>
 			<div
@@ -64,9 +65,9 @@ Info
 			</div>
 			<motion.button
 				onClick={onClose}
-				className="rounded-md p-2 hover:bg-gray-300 focus:outline-none h-8 w-8 flex justify-center items-center"
+				className="rounded-full p-2 hover:bg-gray-300 focus:outline-none h-8 w-8 flex justify-center items-center absolute top-2 right-2"
 			>
-x
+				<MdClose />
 			</motion.button>
 		</motion.div>
 	</div>
